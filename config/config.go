@@ -1,4 +1,4 @@
-package utils
+package config
 
 import (
 	"fmt"
@@ -9,7 +9,6 @@ var (
 	AppMode  string
 	HttpPort string
 
-	Db         string
 	DbHost     string
 	DbPort     string
 	DbUser     string
@@ -20,7 +19,8 @@ var (
 func init() {
 	file, err := ini.Load("config/config.ini")
 	if err != nil {
-		fmt.Printf("Error loading config.ini", err)
+		fmt.Println("Error loading config.ini", err)
+		return
 	}
 
 	LoadServer(file)
@@ -33,9 +33,8 @@ func LoadServer(file *ini.File) {
 }
 
 func LoadDatabase(file *ini.File) {
-	Db = file.Section("database").Key("Db").MustString("mysql")
 	DbHost = file.Section("database").Key("DbHost").MustString("localhost")
-	DbPort = file.Section("database").Key("Db").MustString("3000")
+	DbPort = file.Section("database").Key("DbPort").MustString("3000")
 	DbUser = file.Section("database").Key("DbUser").MustString("ginblog")
 	DbPassWord = file.Section("database").Key("DbPassWord").MustString("123456")
 	DbName = file.Section("database").Key("DbName").MustString("ginblog")
