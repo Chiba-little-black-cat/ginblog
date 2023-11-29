@@ -14,28 +14,34 @@ const (
 	ERROR_TOKEN_TYPE_WRONG = 1007
 	ERROR_USER_NO_RIGHT    = 1008
 	// 文章模块的错误
-	ERROR_ART_NOT_EXIST = 2001
+	ERROR_ARTICLE_NOT_EXIST = 2001
 	// 分类模块的错误
 	ERROR_CATEGORY_NAME_USED = 3001
 	ERROR_CATEGORY_NOT_EXIST = 3002
+
+	// 参数绑定错误
+	ERROR_REQUEST_BODY = 5001
 )
 
 var codeMsg = map[int]string{
-	SUCCESS:                "OK",
-	ERROR:                  "FAIL",
-	ERROR_USERNAME_USED:    "用户名已存在！",
-	ERROR_PASSWORD_WRONG:   "密码错误",
-	ERROR_USER_NOT_EXIST:   "用户不存在",
-	ERROR_TOKEN_EXIST:      "TOKEN不存在,请重新登陆",
+	SUCCESS:              "OK",
+	ERROR:                "FAIL",
+	ERROR_USERNAME_USED:  "Username Exists",
+	ERROR_PASSWORD_WRONG: "Password Wrong",
+	ERROR_USER_NOT_EXIST: "User Not Exists",
+
+	ERROR_TOKEN_EXIST:      "token not exists, please log in again",
 	ERROR_TOKEN_RUNTIME:    "TOKEN已过期,请重新登陆",
 	ERROR_TOKEN_WRONG:      "TOKEN不正确,请重新登陆",
 	ERROR_TOKEN_TYPE_WRONG: "TOKEN格式错误,请重新登陆",
 	ERROR_USER_NO_RIGHT:    "该用户无权限",
 
-	ERROR_ART_NOT_EXIST: "文章不存在",
+	ERROR_ARTICLE_NOT_EXIST: "Article Not Exists",
 
-	ERROR_CATEGORY_NAME_USED: "该分类已存在",
-	ERROR_CATEGORY_NOT_EXIST: "该分类不存在",
+	ERROR_CATEGORY_NAME_USED: "Category Exists",
+	ERROR_CATEGORY_NOT_EXIST: "Category Not Exists",
+
+	ERROR_REQUEST_BODY: "Invalid request body",
 }
 
 func GetErrMsg(code int) string {

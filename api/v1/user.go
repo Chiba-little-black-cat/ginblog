@@ -14,7 +14,7 @@ func AddUser(c *gin.Context) {
 	code := errmsg.SUCCESS
 
 	// Check if username is already existing
-	exist, _ := model.CheckUsername(data.Username)
+	exist, _ := model.IsUsernameExists(data.Username)
 	if exist == false {
 		if err := model.CreateUser(&data); err != nil {
 			code = errmsg.ERROR
@@ -36,10 +36,10 @@ func GetUsers(c *gin.Context) {
 	code := errmsg.SUCCESS
 
 	if pageSize == 0 {
-		pageSize = -1
+		pageSize = 5
 	}
 	if pageNum == 0 {
-		pageNum = -1
+		pageNum = 1
 	}
 
 	users, err := model.GetUsers(pageSize, pageNum)
@@ -62,7 +62,7 @@ func EditUser(c *gin.Context) {
 
 	code := errmsg.SUCCESS
 
-	exist, _ := model.CheckUsername(user.Username)
+	exist, _ := model.IsUsernameExists(user.Username)
 	if exist == false {
 		err := model.EditUser(id, &user)
 		if err != nil {

@@ -9,20 +9,22 @@ import (
 )
 
 var db *gorm.DB
-var err error
 
 func InitDb() {
 	//dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
 	dsn := config.DbUser + ":" + config.DbPassWord + "@tcp(" + config.DbHost + ":" + config.DbPort +
 		")/" + config.DbName + "?charset=utf8mb4&parseTime=True&loc=Local"
 
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	var err error
+
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+		//Logger: logger.Default.LogMode(logger.Info),
+	})
 	if err != nil {
 		fmt.Println("Error connecting database", err)
 		return
 	}
 
-	// AutoMigrate 用于设置自动迁移
 	err = db.AutoMigrate(&User{}, &Category{}, &Article{})
 	if err != nil {
 		fmt.Println("Error migrating database", err)
